@@ -1,2 +1,3 @@
 # doctrine_2_orm.dev
-Doctrine 2 ORM Symfony 3
+Create new project "Doctrine 2 ORM" on Symfony3.
+Author: Moroz Taras. © 2017
