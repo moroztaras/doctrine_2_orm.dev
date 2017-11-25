@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Article
+ * News
  *
- * @ORM\Table(name="article")
+ * @ORM\Table(name="news")
  * @ORM\Entity()
  */
-class Article
+class News
 {
     /**
      * @var int
@@ -69,7 +69,7 @@ class Article
      *
      * @param string $title
      *
-     * @return Article
+     * @return News
      */
     public function setTitle($title)
     {
@@ -93,7 +93,7 @@ class Article
      *
      * @param \DateTime $created
      *
-     * @return Article
+     * @return News
      */
     public function setCreated($created)
     {
@@ -117,7 +117,7 @@ class Article
      *
      * @param \DateTime $updated
      *
-     * @return Article
+     * @return News
      */
     public function setUpdated($updated)
     {
@@ -137,12 +137,10 @@ class Article
     }
 
     /*
-     * Set category
-     *
-     * @param \AppBundle\Entity\Category  $category
-     *
-     * return Article
-     */
+    * Set category
+    *
+    * @return \AppBundle\Entity\Category
+    */
     public function setCategory(\AppBundle\Entity\Category $category = null)
     {
         $this->category = $category;

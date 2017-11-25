@@ -139,9 +139,7 @@ class Article
     /*
      * Set category
      *
-     * @param \AppBundle\Entity\Category  $category
-     *
-     * return Article
+     * @return \AppBundle\Entity\Category
      */
     public function setCategory(\AppBundle\Entity\Category $category = null)
     {
