@@ -42,9 +42,9 @@ class Article
      */
     private $updated;
 
-    /*
-     * @OneToOne(targetEntity="Category")
-     * @JoinColumn(name="category_id", referencedColumnName="id")
+    /**
+     * @ORM\OneToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
@@ -136,12 +136,12 @@ class Article
         return $this->updated;
     }
 
-    /*
+    /**
      * Set category
      *
-     * @param \AppBundle\Entity\Category  $category
+     * @param \AppBundle\Entity\Category $category
      *
-     * return Article
+     * @return Article
      */
     public function setCategory(\AppBundle\Entity\Category $category = null)
     {
@@ -149,6 +149,7 @@ class Article
 
         return $this;
     }
+
     /**
      * Get category
      *

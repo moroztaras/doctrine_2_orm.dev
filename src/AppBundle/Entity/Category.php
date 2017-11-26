@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Category
  *
  * @ORM\Table(name="category")
- * @ORM\Entity()
+ * @ORM\Entity
  */
 class Category
 {
@@ -24,14 +24,15 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string")
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
 
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
