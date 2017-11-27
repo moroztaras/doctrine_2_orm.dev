@@ -28,6 +28,7 @@ class Fixtures extends Fixture
 
         $article1->setCategory($category1);
         $article2->setCategory($category2);
+        $article2->setPatent($article1);
 
         $news1->setCategory($category1);
 

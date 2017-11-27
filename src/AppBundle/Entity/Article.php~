@@ -48,6 +48,12 @@ class Article
      */
     private $category;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Article")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     */
+    private $patent;
+
     public function __construct()
     {
         $this->created = new \DateTime();

@@ -48,6 +48,12 @@ class Article
      */
     private $category;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Article")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     */
+    private $patent;
+
     public function __construct()
     {
         $this->created = new \DateTime();
@@ -158,5 +164,29 @@ class Article
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set patent
+     *
+     * @param \AppBundle\Entity\Article $patent
+     *
+     * @return Article
+     */
+    public function setPatent(\AppBundle\Entity\Article $patent = null)
+    {
+        $this->patent = $patent;
+
+        return $this;
+    }
+
+    /**
+     * Get patent
+     *
+     * @return \AppBundle\Entity\Article
+     */
+    public function getPatent()
+    {
+        return $this->patent;
     }
 }
