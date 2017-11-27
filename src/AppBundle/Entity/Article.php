@@ -43,7 +43,7 @@ class Article
     private $updated;
 
     /**
-     * @ORM\OneToOne(targetEntity="Category")
+     * @ORM\OneToOne(targetEntity="Category", inversedBy="article")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;

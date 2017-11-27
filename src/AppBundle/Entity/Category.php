@@ -28,6 +28,16 @@ class Category
      */
     private $name;
 
+    /*
+     * @ORM\OneToOne(targetEntity="Article", mappedBy="category")
+     */
+    private $article;
+
+    /*
+     * @ORM\OneToOne(targetEntity="News", mappedBy="category")
+     */
+    private $news;
+
 
     /**
      * Get id

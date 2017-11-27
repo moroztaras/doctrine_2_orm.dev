@@ -43,7 +43,7 @@ class News
     private $updated;
 
     /**
-     * @ORM\OneToOne(targetEntity="Category")
+     * @ORM\OneToOne(targetEntity="Category", inversedBy="news")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
