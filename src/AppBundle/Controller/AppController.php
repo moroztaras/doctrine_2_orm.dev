@@ -16,9 +16,9 @@ class AppController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine();
-        $repoArticle = $em->getRepository(Article::class);
-        $article = $repoArticle->find(16);
-        var_dump($article->getParent()->getTitle());
+#        $repoArticle = $em->getRepository(Article::class);
+#        $article = $repoArticle->find(16);
+#        var_dump($article->getParent()->getTitle());
 #        var_dump($article->getCategory()->getName());
 
 #        $repoCategory = $em->getRepository(Category::class);

@@ -1,15 +1,23 @@
 <?php
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Address;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\News;
+use AppBundle\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class Fixtures extends Fixture
 {
     public function load(ObjectManager $manager)
+    {
+#        $this->exemOneToOne($manager);
+        $this->exemManyToOne($manager);
+    }
+
+    private function exemOneToOne(ObjectManager $manager)
     {
         $article1 = new Article();
         $article1->setTitle("My first article");
@@ -38,6 +46,26 @@ class Fixtures extends Fixture
         $manager->persist($category1);
         $manager->persist($category2);
 
+        $manager->flush();
+    }
+
+    private function exemManyToOne(ObjectManager $manager)
+    {
+        $address = new Address();
+        $address->setAddress("Україна, Черкаси, вул. Гагаріна");
+
+        $user1 = new User();
+        $user1->setFullname("Мороз Тарас");
+        $user1->setAddress($address);
+
+        $user2 = new User();
+        $user2->setFullname("Мороз Катя");
+        $user2->setAddress($address);
+
+        $manager->persist($address);
+        $manager->persist($user1);
+        $manager->persist($user2);
+        
         $manager->flush();
     }
 }
