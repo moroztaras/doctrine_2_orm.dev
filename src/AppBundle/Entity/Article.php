@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +50,11 @@ class Article
     private $category;
 
     /**
+     * @ORM\OneToMany(targetEntity="Tags", mappedBy="article", cascade={"persist"})
+     */
+    private $tags;
+
+    /**
      * @ORM\OneToOne(targetEntity="Article")
      * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
@@ -56,6 +62,7 @@ class Article
 
     public function __construct()
     {
+        $this->tags = new ArrayCollection();
         $this->created = new \DateTime();
         $this->updated = new \DateTime();
     }
@@ -188,5 +195,40 @@ class Article
     public function getPatent()
     {
         return $this->patent;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tags $tag
+     *
+     * @return Article
+     */
+    public function addTag(\AppBundle\Entity\Tags $tag)
+    {
+        $this->tags[] = $tag;
+        $tag->setArticle($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tags $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tags $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

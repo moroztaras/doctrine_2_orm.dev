@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +50,11 @@ class Article
     private $category;
 
     /**
+     * @ORM\OneToMany(targetEntity="Tags", mappedBy="article")
+     */
+    private $tags;
+
+    /**
      * @ORM\OneToOne(targetEntity="Article")
      * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
@@ -56,6 +62,7 @@ class Article
 
     public function __construct()
     {
+        $this->tags = new ArrayCollection();
         $this->created = new \DateTime();
         $this->updated = new \DateTime();
     }

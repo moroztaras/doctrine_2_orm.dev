@@ -5,6 +5,7 @@ use AppBundle\Entity\Address;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\News;
+use AppBundle\Entity\Tags;
 use AppBundle\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -14,9 +15,34 @@ class Fixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 #        $this->exemOneToOne($manager);
-        $this->exemManyToOne($manager);
+#        $this->exemManyToOne($manager);
+        $this->exemOneToMany($manager);
     }
+    private function exemOneToMany(ObjectManager $manager)
+    {
+        $article1 = new Article();
+        $article1->setTitle("My first article");
+        $manager->persist($article1);
 
+        $article2 = new Article();
+        $article2->setTitle("My second article");
+        $manager->persist($article2);
+
+        $tags1 = new Tags();
+        $tags1->setName("Tag 1");
+#        $tags1->setArticle($article1);
+        $manager->persist($tags1);
+
+        $tags2 = new Tags();
+        $tags2->setName("Tag 2");
+#        $tags2->setArticle($article2);
+        $manager->persist($tags2);
+
+       $article1->addTag($tags1);
+       $article2->addTag($tags2);
+
+        $manager->flush();
+    }
     private function exemOneToOne(ObjectManager $manager)
     {
         $article1 = new Article();
