@@ -50,7 +50,7 @@ class Article
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Tags", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="Tags", mappedBy="article", cascade={"persist"})
      */
     private $tags;
 
@@ -195,5 +195,40 @@ class Article
     public function getPatent()
     {
         return $this->patent;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tags $tag
+     *
+     * @return Article
+     */
+    public function addTag(\AppBundle\Entity\Tags $tag)
+    {
+        $this->tags[] = $tag;
+        $tag->setArticle($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tags $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tags $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

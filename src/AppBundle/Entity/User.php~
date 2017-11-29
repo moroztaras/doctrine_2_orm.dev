@@ -34,6 +34,17 @@ class User {
     private $address;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="friendChildren")
+     * @ORM\JoinColumn(name="friend_id", referencedColumnName="id")
+     */
+    private $friends;
+
+    /*
+     * @ORM\OneToMany(targetEntity="User", mappedBy="friends")
+     */
+    private $friendChildren;
+
+    /**
      * Get id
      *
      * @return integer
@@ -89,5 +100,29 @@ class User {
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Set friends
+     *
+     * @param \AppBundle\Entity\User $friends
+     *
+     * @return User
+     */
+    public function setFriends(\AppBundle\Entity\User $friends = null)
+    {
+        $this->friends = $friends;
+
+        return $this;
+    }
+
+    /**
+     * Get friends
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getFriends()
+    {
+        return $this->friends;
     }
 }
