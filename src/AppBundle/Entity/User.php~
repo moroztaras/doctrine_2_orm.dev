@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +44,18 @@ class User {
      * @ORM\OneToMany(targetEntity="User", mappedBy="friends")
      */
     private $friendChildren;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Roles", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_roles")
+     */
+    private $roles;
+    
+    public function __construct()
+    {
+        $this->friendChildren = new ArrayCollection();
+        $this->roles = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -124,5 +137,39 @@ class User {
     public function getFriends()
     {
         return $this->friends;
+    }
+
+    /**
+     * Add friendChildrenId
+     *
+     * @param \AppBundle\Entity\User $friendChildrenId
+     *
+     * @return User
+     */
+    public function addFriendChildren(\AppBundle\Entity\User $friendChildrenId)
+    {
+        $this->friendChildren[] = $friendChildrenId;
+
+        return $this;
+    }
+
+    /**
+     * Remove friendChildrenId
+     *
+     * @param \AppBundle\Entity\User $friendChildrenId
+     */
+    public function removeFriendChildren(\AppBundle\Entity\User $friendChildrenId)
+    {
+        $this->friendChildren->removeElement($friendChildrenId);
+    }
+
+    /**
+     * Get friendChildren
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFriendChildren()
+    {
+        return $this->friendChildren;
     }
 }

@@ -45,11 +45,17 @@ class User {
      */
     private $friendChildren;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Roles", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_roles")
+     */
+    private $roles;
+    
     public function __construct()
     {
         $this->friendChildren = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -165,5 +171,39 @@ class User {
     public function getFriendChildren()
     {
         return $this->friendChildren;
+    }
+
+    /**
+     * Add role
+     *
+     * @param \AppBundle\Entity\Roles $role
+     *
+     * @return User
+     */
+    public function addRole(\AppBundle\Entity\Roles $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param \AppBundle\Entity\Roles $role
+     */
+    public function removeRole(\AppBundle\Entity\Roles $role)
+    {
+        $this->roles->removeElement($role);
+    }
+
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }

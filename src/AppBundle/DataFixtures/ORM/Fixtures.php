@@ -5,6 +5,7 @@ use AppBundle\Entity\Address;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\News;
+use AppBundle\Entity\Roles;
 use AppBundle\Entity\Tags;
 use AppBundle\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -17,8 +18,39 @@ class Fixtures extends Fixture
 #        $this->exemOneToOne($manager);
 #        $this->exemManyToOne($manager);
 #        $this->exemOneToMany($manager);
-        $this->exemManyToOneSelf($manager);
+#        $this->exemManyToOneSelf($manager);
+        $this->exemManyToMany($manager);
     }
+
+    private function exemManyToMany(ObjectManager $manager)
+    {
+        $user1 = new User();
+        $user1->setFullname("Мороз Тарас");
+
+        $user2 = new User();
+        $user2->setFullname("Мороз Катя");
+
+        $user3 = new User();
+        $user3->setFullname("Мороз Рома");
+
+        $role1 = new Roles();
+        $role1->setRole("ROLE_USER");
+
+        $role2 = new Roles();
+        $role2->setRole("ROLE_ADMIN");
+
+        $user1->addRole($role1);
+        $user1->addRole($role2);
+        $user2->addRole($role1);
+        $user3->addRole($role2);
+
+        $manager->persist($user1);
+        $manager->persist($user2);
+        $manager->persist($user3);
+
+        $manager->flush();
+    }
+
     private function exemManyToOneSelf(ObjectManager $manager)
     {
         $user1 = new User();

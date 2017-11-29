@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\News;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Roles;
 use AppBundle\Entity\Tags;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,9 +20,27 @@ class AppController extends Controller
     {
 #        $this->OneToOne();
 #        $this->OneToMany();
-        $this->ManyToOne();
+#        $this->ManyToOne();
+        $this->ManyToMany();
 
         return $this->render("::base.html.twig");
+    }
+
+    private function ManyToMany()
+    {
+        $em = $this->getDoctrine();
+        $repoUser = $em->getRepository(User::class);
+        $repoRoles = $em->getRepository(Roles::class);
+        /*
+         * @var $user1 User
+         */
+        $user1 = $repoUser->find(1);
+        $roles = $user1->getRoles();
+#        var_dump($roles->toArray());
+
+        $role = $repoRoles->find(1);
+        $users = $role->getUsers();
+        var_dump($users->toArray());
     }
 
     private function ManyToOne()
