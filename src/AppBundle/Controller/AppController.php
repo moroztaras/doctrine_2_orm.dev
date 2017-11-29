@@ -6,6 +6,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\News;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Tags;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -17,11 +18,25 @@ class AppController extends Controller
     public function indexAction()
     {
 #        $this->OneToOne();
-        $this->OneToMany();
+#        $this->OneToMany();
+        $this->ManyToOne();
 
         return $this->render("::base.html.twig");
     }
 
+    private function ManyToOne()
+    {
+        $em = $this->getDoctrine();
+        $repoUser = $em->getRepository(User::class);
+        /*
+         * @var $user1 User
+         */
+        $user1 = $repoUser->find(1);
+        var_dump("my friend");
+        var_dump($user1->getFriends());
+        var_dump("friend children");
+#        var_dump($user1->getFriendChildren()->toArray());
+    }
     private function OneToOne()
     {
 #        $em = $this->getDoctrine();

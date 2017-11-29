@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +33,23 @@ class User {
      * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
      */
     private $address;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="friendChildren")
+     * @ORM\JoinColumn(name="friend_id", referencedColumnName="id")
+     */
+    private $friends;
+
+    /*
+     * @ORM\OneToMany(targetEntity="User", mappedBy="friends")
+     */
+    private $friendChildren;
+
+    public function __construct()
+    {
+        $this->friendChildren = new ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -89,5 +107,63 @@ class User {
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Set friends
+     *
+     * @param \AppBundle\Entity\User $friends
+     *
+     * @return User
+     */
+    public function setFriends(\AppBundle\Entity\User $friends = null)
+    {
+        $this->friends = $friends;
+
+        return $this;
+    }
+
+    /**
+     * Get friends
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getFriends()
+    {
+        return $this->friends;
+    }
+
+    /**
+     * Add friendChildrenId
+     *
+     * @param \AppBundle\Entity\User $friendChildrenId
+     *
+     * @return User
+     */
+    public function addFriendChildren(\AppBundle\Entity\User $friendChildrenId)
+    {
+        $this->friendChildren[] = $friendChildrenId;
+
+        return $this;
+    }
+
+    /**
+     * Remove friendChildrenId
+     *
+     * @param \AppBundle\Entity\User $friendChildrenId
+     */
+    public function removeFriendChildren(\AppBundle\Entity\User $friendChildrenId)
+    {
+        $this->friendChildren->removeElement($friendChildrenId);
+    }
+
+    /**
+     * Get friendChildren
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFriendChildren()
+    {
+        return $this->friendChildren;
     }
 }
