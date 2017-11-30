@@ -19,7 +19,33 @@ class Fixtures extends Fixture
 #        $this->exemManyToOne($manager);
 #        $this->exemOneToMany($manager);
 #        $this->exemManyToOneSelf($manager);
-        $this->exemManyToMany($manager);
+#        $this->exemManyToMany($manager);
+        $this->exemManyToManySelf($manager);
+    }
+
+    private function exemManyToManySelf(ObjectManager $manager)
+    {
+        $user1 = new User();
+        $user1->setFullname("Мороз Тарас");
+
+        $user2 = new User();
+        $user2->setFullname("Мороз Катя");
+
+        $user3 = new User();
+        $user3->setFullname("Мороз Рома");
+
+        #freands
+        $user1->addMyFriend($user2);
+        $user1->addMyFriend($user3);
+        $user2->addMyFriend($user1);
+        $user3->addMyFriend($user1);
+
+
+        $manager->persist($user1);
+        $manager->persist($user2);
+        $manager->persist($user3);
+
+        $manager->flush();
     }
 
     private function exemManyToMany(ObjectManager $manager)

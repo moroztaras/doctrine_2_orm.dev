@@ -21,11 +21,20 @@ class AppController extends Controller
 #        $this->OneToOne();
 #        $this->OneToMany();
 #        $this->ManyToOne();
-        $this->ManyToMany();
+#        $this->ManyToMany();
+        $this->ManyToManySelf();
 
         return $this->render("::base.html.twig");
     }
 
+    private function ManyToManySelf()
+    {
+        $em = $this->getDoctrine();
+        $repoUser = $em->getRepository(User::class);
+#        var_dump($repoUser->find(1)->getMyFriends()->toArray());
+        var_dump($repoUser->find(2)->getFriendsWithMe()->toArray());
+
+    }
     private function ManyToMany()
     {
         $em = $this->getDoctrine();
