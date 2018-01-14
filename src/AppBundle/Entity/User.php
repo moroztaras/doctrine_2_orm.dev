@@ -47,9 +47,9 @@ class User {
 
     /**
      * @ORM\ManyToMany(targetEntity="Roles", inversedBy="users", cascade={"persist"})
-     * @ORM\JoinColumn(name="user_roles")
+     * @ORM\JoinColumn(name="users_roles")
      */
-    private $roles;
+    private $role;
 
     /**
      * Many Users have Many Users.
@@ -70,7 +70,7 @@ class User {
     public function __construct()
     {
         $this->friendChildren = new ArrayCollection();
-        $this->roles = new ArrayCollection();
+        $this->role = new ArrayCollection();
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -200,7 +200,7 @@ class User {
      */
     public function addRole(\AppBundle\Entity\Roles $role)
     {
-        $this->roles[] = $role;
+        $this->role[] = $role;
 
         return $this;
     }
@@ -212,17 +212,29 @@ class User {
      */
     public function removeRole(\AppBundle\Entity\Roles $role)
     {
-        $this->roles->removeElement($role);
+        $this->role->removeElement($role);
+    }
+
+    /*
+     * Set roles
+     *
+     * @param  \AppBundle\Entity\Roles $roles
+     * @return User
+     */
+    public function setRole(\AppBundle\Entity\Roles $role = null)
+    {
+        $this->role = $role;
+        $this->role->addUser($this);
     }
 
     /**
-     * Get roles
+     * Get role
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRoles()
+    public function getRole()
     {
-        return $this->roles;
+        return $this->role;
     }
 
     /**

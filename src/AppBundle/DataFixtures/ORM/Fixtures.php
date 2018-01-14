@@ -19,8 +19,8 @@ class Fixtures extends Fixture
 #        $this->exemManyToOne($manager);
 #        $this->exemOneToMany($manager);
 #        $this->exemManyToOneSelf($manager);
-#        $this->exemManyToMany($manager);
-        $this->exemManyToManySelf($manager);
+        $this->exemManyToMany($manager);
+#        $this->exemManyToManySelf($manager);
     }
 
     private function exemManyToManySelf(ObjectManager $manager)

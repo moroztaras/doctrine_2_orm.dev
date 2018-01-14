@@ -24,9 +24,9 @@ class Roles
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="roles", type="string", length=255)
      */
-    private $role;
+    private $roles;
 
     /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
@@ -46,25 +46,25 @@ class Roles
     /**
      * Set role
      *
-     * @param string $role
+     * @param string $roles
      *
      * @return Roles
      */
-    public function setRole($role)
+    public function setRoles($roles)
     {
-        $this->role = $role;
+        $this->role = $roles;
 
         return $this;
     }
 
     /**
-     * Get role
+     * Get roles
      *
      * @return string
      */
-    public function getRole()
+    public function getRoles()
     {
-        return $this->role;
+        return $this->roles;
     }
     /**
      * Constructor
